@@ -5,6 +5,6 @@ You can edit the file to change parameters and see how it works
 
 ---
 
-Result of the simulation :
+### Result of the simulation :
 
 ![Plot of the simulation](test.png)
