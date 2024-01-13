@@ -63,5 +63,5 @@ plt.scatter(n_games, no_switch, c="#faa307", alpha=0.8, label='No switched door'
 plt.legend()
 
 plt.savefig('monty_hall.png')
-print(f"Executed in {time.time() - t}s")
+print(f"Executed in {time.time() - t}s") # around 20s on my PC
 plt.show()
