@@ -41,7 +41,7 @@ t = time.time()
 n_simulation = 1000
 
 probabilities = np.zeros((9, n_simulation))
-n_games = np.array([int(math.exp(i)) for i in np.linspace(1, math.log(100_000), num=n_simulation)]) # goes exponentially from 1 to 10_000
+n_games = np.array([int(math.exp(i)) for i in np.linspace(1, math.log(100_000), num=n_simulation)]) # goes exponentially from 1 to 100_000
 
 for i in range(n_simulation):
     for n_doors in range(9):
@@ -64,7 +64,7 @@ for i in range(9):
 
 # plt.colorbar(label='Number of doors opened')
 plt.legend(loc='upper left', title='Doors\nopened')
-plt.savefig('result.png')
+plt.savefig('result2.png')
 
 print(f"Executed in {time.time() - t}s") # around 350s on my PC
 plt.show()
