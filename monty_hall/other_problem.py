@@ -66,5 +66,5 @@ for i in range(9):
 plt.legend(loc='upper left', title='Doors\nopened')
 plt.savefig('result.png')
 
-print(f"Executed in {time.time() - t}s")
+print(f"Executed in {time.time() - t}s") # around 350s on my PC
 plt.show()
