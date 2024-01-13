@@ -2,6 +2,7 @@ import random as r
 from matplotlib import pyplot as plt
 import numpy as np
 import math
+import time
 
 
 def game(switch=True) -> bool:
@@ -32,19 +33,23 @@ def simulation(N, switch):
             n_win += 1
     return n_win / N
 
-n_exp = 100
 
-switch = np.zeros(n_exp)
-no_switch = np.zeros(n_exp)
-n_games = np.array([int(math.exp(i)) for i in np.linspace(1, math.log(100_000), num=n_exp)] )# goes exponentially from 1 to 100_000
+t = time.time()
 
-for i in range(n_exp):
+n_simulations = 1000
+
+switch = np.zeros(n_simulations)
+no_switch = np.zeros(n_simulations)
+n_games = np.array([int(math.exp(i)) for i in np.linspace(1, math.log(100_000), num=n_simulations)]) # goes exponentially from 1 to 100_000
+
+for i in range(n_simulations):
     switch[i] = simulation(n_games[i], True)
     no_switch[i] = simulation(n_games[i], False)
 
 
 # plot the results
     
+plt.figure(figsize=(12, 6))
 plt.xscale('log')
 plt.ylim(0, 1)
 
@@ -52,10 +57,11 @@ plt.title('Simulation of Monty Hall Problem')
 plt.xlabel('Number of games tried')
 plt.ylabel('Win probability')
 
-plt.scatter(n_games, switch, alpha=0.8, label='Switched door')
-plt.scatter(n_games, no_switch, alpha=0.8, label='No switched door')
+plt.scatter(n_games, switch, c="#d00000", alpha=0.8, label='Switched door')
+plt.scatter(n_games, no_switch, c="#faa307", alpha=0.8, label='No switched door')
 
 plt.legend()
 
-plt.savefig('test.png')
+plt.savefig('monty_hall.png')
+print(f"Executed in {time.time() - t}s")
 plt.show()
