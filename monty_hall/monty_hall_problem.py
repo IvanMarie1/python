@@ -12,15 +12,23 @@ def game(switch=True) -> bool:
     You pick a door, say No. 1, and the host, who knows what's behind the doors, opens another door, say No. 3, which has a goat.
     He then says to you, "Do you want to pick door No. 2?" Is it to your advantage to switch your choice?"""
 
-    winning_door = r.randint(0,2) # the car is behind a random door
+    doors = [1, 0, 0] # the car is 1 and the goats are 0
+    r.shuffle(doors)
+
     choice = r.randint(0,2) # choosing the first door
+
+    # the host open the doors (opened door = -1)
+    if doors[(choice+1)%3] == 0:
+        doors[(choice+1)%3] = -1
+    else:
+        doors[(choice+2)%3] = -1
 
     if switch:
         choice += 1 # the choice switch to the next door
-        if choice % 3 != winning_door: # the next door is a goat, the choice switch to the next one
+        if doors[choice % 3] == -1: # the next door is opened, the choice switch to the next one
             choice += 1
     
-    return choice % 3 == winning_door # the choice is the winning door
+    return doors[choice % 3] == 1 # the choice is the winning door
 
 
 def simulation(N, switch):
@@ -62,6 +70,6 @@ plt.scatter(n_games, no_switch, c="#faa307", alpha=0.8, label='No switched door'
 
 plt.legend()
 
-plt.savefig('monty_hall.png')
-print(f"Executed in {time.time() - t}s") # around 20s on my PC
+plt.savefig('result1.png')
+print(f"Executed in {time.time() - t}s") # around 60s on my PC
 plt.show()
