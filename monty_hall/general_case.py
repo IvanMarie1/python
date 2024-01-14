@@ -60,7 +60,6 @@ def simulation(n_games: int, n_doors: int, n_winning: int, n_open: int) -> float
 t = time.time()
 
 n_simulation = 1000
-n_games = np.exp(np.linspace(1, math.log(100_000), num=n_simulation)).astype(int)
 probabilities = np.zeros(n_simulation)
 n_doors = np.ones(n_simulation).astype(int) 
 n_winning = np.ones(n_simulation).astype(int)
@@ -70,7 +69,7 @@ for i in range(n_simulation):
     n_doors[i] = r.randint(2, 100)
     n_winning[i] = r.randint(1, n_doors[i]-1)
     n_open[i] = r.randint(0, n_doors[i] - n_winning[i] - 1) 
-    probabilities[i] = simulation(n_games[i], n_doors[i], n_winning[i], n_open[i])
+    probabilities[i] = simulation(10000, n_doors[i], n_winning[i], n_open[i])
 
 conjecture = (n_winning / n_doors) * (n_doors - 1) /(n_doors - n_open - 1)
 
@@ -81,11 +80,10 @@ plt.title('Simulation of a variation of Monty Hall Problem')
 plt.xlabel('Win Probability')
 plt.ylabel('Theoric probability')
 
-plt.scatter(probabilities, conjecture, s=np.power(np.log(n_games), 3)//4, c=n_open / (n_doors - n_winning), alpha=.8, cmap='plasma')
+plt.scatter(probabilities, conjecture, c=n_open / (n_doors - n_winning), alpha=.8, cmap='plasma')
 
-#plt.legend(loc='upper left', title='Doors\nopened')
 plt.colorbar(label="Proportion of open doors")
 
 plt.savefig('result4.png')
-print(f"Executed in {time.time() - t}s") # around 60s on my PC
+print(f"Executed in {time.time() - t}s") # around 350s on my PC
 plt.show()
