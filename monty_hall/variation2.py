@@ -5,25 +5,36 @@ import math
 import time
 
 
-def game(n_doors: int) -> bool:
+def game(n_opened: int) -> bool:
     """
     Simulate a variation of the Monty Hall problem
-    Rules : You have the choice of five doors: two of them are winning (True) and the others are losing (False).
+    Rules : You have the choice of five doors: two of them are winning (1) and the others are losing (0).
     You pick a door, the host opens another losing door and give you the choice to switch door.
 
     - Returns True if you win the game, False otherwise
     - n_doors: Number of doors opened by the host
     """
 
-    doors = [True, True, False, False, False] # two winning doors and three losing doors
-    choice = r.randint(0,4) # picking a door
+    # setting the doors
+    doors = [0] * 3 + [1] * 2
+    r.shuffle(doors)
 
-    choice += 1 # the choice switch to the next door
-    for _ in range(n_doors):
-        if doors[choice % 5] == False: # the next door is losing, the choice switch to the next one
-            choice += 1
+    choice = r.randint(0, 4)
+
+    # the host open the doors (opened door = -1)
+    i = 0
+    for _ in range(n_opened):
+        while doors[i%5] != 0 or i%5 == choice:
+            i += 1
+        doors[i%5] = -1
+        i += 1
     
-    return doors[choice % 5] # you picked a winning/losing door
+    # the player switch door
+    choice += 1
+    while doors[choice%5] == -1:
+        choice += 1
+    
+    return doors[choice%5] == 1
 
 
 def simulation(n_games: int, n_doors: int):
@@ -68,5 +79,5 @@ for i in range(3):
 plt.legend(loc='upper left', title='Doors\nopened')
 
 plt.savefig('result3.png')
-print(f"Executed in {time.time() - t}s") # around 80s on my PC
+print(f"Executed in {time.time() - t}s") # around 140s on my PC
 plt.show()
