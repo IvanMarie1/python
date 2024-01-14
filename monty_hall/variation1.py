@@ -5,25 +5,34 @@ import math
 import time
 
 
-def game(n_swicth: int) -> bool:
+def game(n_opened: int) -> bool:
     """Simulate a Monty Hall like problem
     Return True if you win the game
     
-    There is 10 doors, one of them is winning (True) and the others are losing (False)
+    There is 10 doors, one of them is winning (1) and the others are losing (0)
     You chose a door, then the host open n losing doors and you can change door, do you do it ?
     Here we decide to switch doors"""
 
-    doors = [True, False, False, False, False, False, False, False, False, False]
+    # setting the doors
+    doors = [1] + [0] * 9
     r.shuffle(doors)
-    choice = r.randint(0,9) # choosing the first door
 
+    choice = r.randint(0, 9)
+
+    # the host open the doors (opened door = -1)
+    i = 0
+    for _ in range(n_opened):
+        while doors[i%10] != 0 or i%10 == choice:
+            i += 1
+        doors[i%10] = -1
+        i += 1
     
-    choice += 1 # the choice switch to the next door
-    for _ in range(n_swicth):
-        if not doors[choice % 10]: # the next door is losing, the choice switch to the next one
-            choice += 1
+    # the player switch door
+    choice += 1
+    while doors[choice%10] == -1:
+        choice += 1
     
-    return doors[choice % 10] # the choice is the winning door
+    return doors[choice%10] == 1 # the choice is the winning door
 
 
 def simulation(n_games, n_doors):
@@ -60,11 +69,11 @@ plt.xlabel('Number of games tried')
 plt.ylabel('Win probability')
 
 for i in range(9):
-    plt.scatter(n_games, probabilities[i], c=colors[i], alpha=0.8, label=f"{i}")
+    plt.scatter(n_games, probabilities[i], c=colors[i], alpha=0.7, label=f"{i}")
 
 # plt.colorbar(label='Number of doors opened')
 plt.legend(loc='upper left', title='Doors\nopened')
 plt.savefig('result2.png')
 
-print(f"Executed in {time.time() - t}s") # around 350s on my PC
+print(f"Executed in {time.time() - t}s") # around 700s on my PC
 plt.show()
