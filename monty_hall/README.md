@@ -36,8 +36,16 @@ We can see that the win probability tends to (2 + number of opened doors) / 5
 
 ![Simulation's result of a Monty Hall problem with five doors](result3.png)
 
-## Conjecture
+## General case
 
-With the previous results, we can guess that the winning probability is equal to (n_winnning_doors + n_opened_doors) / (n_doors)
+Now we can try to adapt the previous experiments by trying to understand how this work with more variables
 
-We have to check this by doing some maths I guess
+By doing some maths, we get the winning probability equal to (n_winnning(n_doors-1))/(n_doors(n_doors-n_open-1)) 
+
+![Calculation of the winning probability by using conditional probability](calculs.png)
+
+### Result of the experiment
+We compare the result of the simulation with the theoric probability with different situations
+So it seems that the theroric calculation is connected to result of the simulation
+
+![Simulation's result of a Monty Hall problem in a general case](result4.png)
