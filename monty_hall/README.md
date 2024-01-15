@@ -71,8 +71,10 @@ $$\frac{n_{winning}}{n_{doors}} \times \frac{n_{doors}-1}{n_{doors}-n_{open}-1}$
 ![Calculation of the winning probability by using conditional probability](img/calculs.png)
 
 ### Result of the experiment
-We compare the result of the simulation with the theoric probability with different situations
+We compare the result of the simulation with the theoretical probability with different situations
 
-So it seems that the theroric calculation is not connected to simulation (when a lot of doors are opened), so there is a mistake in the code or the calculation ...
+It appears that the simulation result is equal to the theoretical probability, so the formula seems correct
 
-![Simulation's result of a Monty Hall problem in a general case](img/result4.png)
+![Comparaison of calculated probability with the simulation results](img/result4.png)
+
+![3D Comparaison of calculated probability with the simulation results](img/result5.png)
