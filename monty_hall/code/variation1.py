@@ -3,50 +3,9 @@ from matplotlib import pyplot as plt
 import numpy as np
 import math
 import time
+from general_case import simulation
 
 
-def game(n_opened: int) -> bool:
-    """Simulate a Monty Hall like problem
-    Return True if you win the game
-    
-    There is 10 doors, one of them is winning (1) and the others are losing (0)
-    You chose a door, then the host open n losing doors and you can change door, do you do it ?
-    Here we decide to switch doors"""
-
-    # setting the doors
-    doors = [1] + [0] * 9
-    r.shuffle(doors)
-
-    choice = r.randint(0, 9)
-
-    # the host open the doors (opened door = -1)
-    i = 0
-    for _ in range(n_opened):
-        while doors[i%10] != 0 or i%10 == choice:
-            i += 1
-        doors[i%10] = -1
-        i += 1
-
-    available_choice = []
-    for i in range(10):
-        if doors[i] >= 0 and i != choice:
-            available_choice.append(i)
-    
-    # the player switch door
-    new_choice = r.choice(available_choice)
-    
-    return doors[new_choice%10] == 1 # the choice is the winning door
-
-
-def simulation(n_games, n_doors):
-    """Returns the probability to win after played N times
-    The games are played by opening n_doors doors"""
-
-    n_win = 0
-    for _ in range(n_games):
-        if game(n_doors):
-            n_win += 1
-    return n_win / n_games
 
 t = time.time()
 
@@ -56,8 +15,8 @@ probabilities = np.zeros((9, n_simulation))
 n_games = np.array([int(math.exp(i)) for i in np.linspace(1, math.log(100_000), num=n_simulation)]) # goes exponentially from 1 to 100_000
 
 for i in range(n_simulation):
-    for n_doors in range(9):
-        probabilities[n_doors][i] = simulation(n_games[i], n_doors)
+    for n_open in range(9):
+        probabilities[n_open][i] = simulation(n_games[i], 10, 1, n_open)
 
 
 # plot the results
