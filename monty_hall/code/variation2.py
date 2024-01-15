@@ -28,13 +28,16 @@ def game(n_opened: int) -> bool:
             i += 1
         doors[i%5] = -1
         i += 1
+
+    available_choice = []
+    for i in range(5):
+        if doors[i] >= 0 and i != choice:
+            available_choice.append(i)
     
     # the player switch door
-    choice += 1
-    while doors[choice%5] == -1:
-        choice += 1
+    new_choice = r.choice(available_choice)
     
-    return doors[choice%5] == 1
+    return doors[new_choice] == 1
 
 
 def simulation(n_games: int, n_doors: int):
@@ -52,7 +55,7 @@ def simulation(n_games: int, n_doors: int):
 
 t = time.time()
 
-n_simulations = 1000
+n_simulations = 500
 
 probabilities = np.zeros((3, n_simulations))
 n_games = np.array([int(math.exp(i)) for i in np.linspace(1, math.log(100_000), num=n_simulations)]) # goes exponentially from 1 to 100_000
@@ -79,5 +82,5 @@ for i in range(3):
 plt.legend(loc='upper left', title='Doors\nopened')
 
 plt.savefig('result3.png')
-print(f"Executed in {time.time() - t}s") # around 140s on my PC
+print(f"Executed in {time.time() - t:.2f}s") # around 50s on my PC
 plt.show()
