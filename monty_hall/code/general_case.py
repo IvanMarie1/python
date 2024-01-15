@@ -31,18 +31,21 @@ def game(n_doors: int, n_winning: int, n_open: int) -> bool:
         while doors[i%n_doors] != 0 or i%n_doors == choice:
             i += 1
         doors[i%n_doors] = -1
-        i += 1
+
+    available_choice = []
+    for i in range(n_doors):
+        if doors[i] >= 0 and i != choice:
+            available_choice.append(i)
     
     # the player switch door
-    choice += 1
-    while doors[choice%n_doors] == -1:
-        choice += 1
+    new_choice = r.choice(available_choice)
     
-    return doors[choice%n_doors] == 1 # the player choose a winning door
+    return doors[new_choice%n_doors] == 1 # the player choose a winning door
 
 
 def simulation(n_games: int, n_doors: int, n_winning: int, n_open: int) -> float:
     """Repeat the game to get an approximation of the win probability with certain parameters
+
     Return the win probability (between 0 and 1)
     
     - n_games: number of games played to approximate probability
@@ -59,7 +62,8 @@ def simulation(n_games: int, n_doors: int, n_winning: int, n_open: int) -> float
 
 t = time.time()
 
-n_simulation = 1000
+n_simulation = 500
+n_games = np.exp(np.linspace(1, math.log(100_000), num=n_simulation)).astype(int)
 probabilities = np.zeros(n_simulation)
 n_doors = np.ones(n_simulation).astype(int) 
 n_winning = np.ones(n_simulation).astype(int)
@@ -69,21 +73,22 @@ for i in range(n_simulation):
     n_doors[i] = r.randint(2, 100)
     n_winning[i] = r.randint(1, n_doors[i]-1)
     n_open[i] = r.randint(0, n_doors[i] - n_winning[i] - 1) 
-    probabilities[i] = simulation(10000, n_doors[i], n_winning[i], n_open[i])
+    probabilities[i] = simulation(n_games[i], n_doors[i], n_winning[i], n_open[i])
 
 conjecture = (n_winning / n_doors) * (n_doors - 1) /(n_doors - n_open - 1)
 
 
 # plotting the results
+plt.figure(figsize=(12,6))
 
 plt.title('Simulation of a variation of Monty Hall Problem')
 plt.xlabel('Win Probability')
 plt.ylabel('Theoric probability')
 
-plt.scatter(probabilities, conjecture, c=n_open / (n_doors - n_winning), alpha=.8, cmap='plasma')
+plt.scatter(probabilities, conjecture, s=(np.log(n_games) ** 3) // 3, c=(n_winning / n_doors), alpha=.8, cmap='plasma')
 
-plt.colorbar(label="Proportion of open doors")
+plt.colorbar(label="Proportion of winning doors")
 
 plt.savefig('result4.png')
-print(f"Executed in {time.time() - t}s") # around 350s on my PC
+print(f"Executed in {time.time() - t:.2f}s") # around 130s on my PC
 plt.show()
