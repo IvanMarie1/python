@@ -59,36 +59,40 @@ def simulation(n_games: int, n_doors: int, n_winning: int, n_open: int) -> float
             n_win += 1
     return (n_win/n_games)
 
+def main():
+    t = time.time()
 
-t = time.time()
+    n_simulation = 500
+    n_games = np.exp(np.linspace(1, math.log(100_000), num=n_simulation)).astype(int)
+    probabilities = np.zeros(n_simulation)
+    n_doors = np.ones(n_simulation).astype(int) 
+    n_winning = np.ones(n_simulation).astype(int)
+    n_open = np.ones(n_simulation).astype(int)
 
-n_simulation = 500
-n_games = np.exp(np.linspace(1, math.log(100_000), num=n_simulation)).astype(int)
-probabilities = np.zeros(n_simulation)
-n_doors = np.ones(n_simulation).astype(int) 
-n_winning = np.ones(n_simulation).astype(int)
-n_open = np.ones(n_simulation).astype(int)
+    for i in range(n_simulation):
+        n_doors[i] = r.randint(2, 100)
+        n_winning[i] = r.randint(1, n_doors[i]-1)
+        n_open[i] = r.randint(0, n_doors[i] - n_winning[i] - 1) 
+        probabilities[i] = simulation(n_games[i], n_doors[i], n_winning[i], n_open[i])
 
-for i in range(n_simulation):
-    n_doors[i] = r.randint(2, 100)
-    n_winning[i] = r.randint(1, n_doors[i]-1)
-    n_open[i] = r.randint(0, n_doors[i] - n_winning[i] - 1) 
-    probabilities[i] = simulation(n_games[i], n_doors[i], n_winning[i], n_open[i])
-
-conjecture = (n_winning / n_doors) * (n_doors - 1) /(n_doors - n_open - 1)
+    conjecture = (n_winning / n_doors) * (n_doors - 1) /(n_doors - n_open - 1)
 
 
-# plotting the results
-plt.figure(figsize=(12,6))
+    # plotting the results
+    plt.figure(figsize=(12,6))
 
-plt.title('Simulation of a variation of Monty Hall Problem')
-plt.xlabel('Win Probability')
-plt.ylabel('Theoric probability')
+    plt.title('Simulation of a variation of Monty Hall Problem')
+    plt.xlabel('Win Probability')
+    plt.ylabel('Theoric probability')
 
-plt.scatter(probabilities, conjecture, s=(np.log(n_games) ** 3) // 3, c=(n_winning / n_doors), alpha=.8, cmap='plasma')
+    plt.scatter(probabilities, conjecture, s=(np.log(n_games) ** 3) // 3, c=(n_winning / n_doors), alpha=.8, cmap='plasma')
 
-plt.colorbar(label="Proportion of winning doors")
+    plt.colorbar(label="Proportion of winning doors")
 
-plt.savefig('result4.png')
-print(f"Executed in {time.time() - t:.2f}s") # around 130s on my PC
-plt.show()
+    plt.savefig('result4.png')
+    print(f"Executed in {time.time() - t:.2f}s") # around 130s on my PC
+    plt.show()
+
+
+if __name__ == "__main__":
+    main()
