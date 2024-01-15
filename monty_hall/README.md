@@ -1,14 +1,26 @@
 # Simulation of Monty Hall Problem with Python
 
-Simulate the Monty Hall Problem by repeating the game thousands of times in order to calculate the win probability if we switch door or not
+Simulate the Monty Hall Problem by repeating the game thousands of times in order to calculate the win probability with a lot of parameters
+
+---
+
+## How to use it
+You can download the source code in the [**code folder**](code/)
+
+If you have already installed [NumPy](https://numpy.org/) and [Matplotlib](https://matplotlib.org/), you should run the file without problem
+
 You can edit the file to change parameters and see how it works 
 
-[monty_hall_problem.py](code/monty_hall_problem.py)
+If you want to use variation1.py and variation2.py, you have to download general_case.py to import the simulation function
 
 ---
 
 ### Result of the simulation
-We can see that switching doors after one is opened give a better chance to win the game and the probability to win tends to 2/3
+Here we simulate the original game show with three doors : one is winning and the two other are losing. When you chose, the host open a losing door, do you switch door or not ?
+
+We can see that switching doors after one is opened give a better chance to win the game ( the probability to win tends to 2/3 and not to 1/2 )
+
+[monty_hall_problem.py](code/monty_hall_problem.py)
 
 ![Simulation's result of the Monty Hall problem](img/result1.png)
 
