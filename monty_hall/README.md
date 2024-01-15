@@ -29,7 +29,7 @@ We can see that switching doors after one is opened give a better chance to win 
 
 # Other parameters
 
-Then I asked myself how the game would work if we change the rules.
+Then I asked myself how the game would work if we change the rules like the number of doors, etc.
 
 
 ## Variation 1
@@ -43,24 +43,30 @@ So it seems that the more you open doors, the higher is the chance to win which 
 
 ![Simulation's result of a Monty Hall problem with 10 doors](img/result2.png)
 
+---
+
 ## Variation 2
 
-There are 5 doors and two of them are winning, the host open 0 to 3 doors
+There are 5 doors and two of them are winning, the host open 0 to 2 doors
 
 [variation2.py](code/variation2.py)
 
 ### Result of the simulation
-We can see that the win probability still increase but it is not equal to 0.5 when we open 1 door (it is ~0.54)
+We can see that the win probability still increase but it is not equal to 0.5 when we open 1 door (it is ~0.533)
 
 ![Simulation's result of a Monty Hall problem with five doors](img/result3.png)
 
+---
+
 ## General case
 
-Now we can try to adapt the previous experiments by trying to understand how this work with all the parameters as variables
+Now we can try to adapt the previous experiments to understand how this work with all the parameters as variables
 
 [general_case.py](code/general_case.py)
 
-By doing some maths, we get the winning probability equal to (n_winnning(n_doors-1))/(n_doors(n_doors-n_open-1)) 
+By doing some maths, we get the winning probability equal to :
+$$\frac{n_{winning}}{n_{doors}} \times \frac{n_{doors}-1}{n_{doors}-n_{open}-1}$$
+(It is the probability of winning if we switch door after the opening)
 
 ![Calculation of the winning probability by using conditional probability](img/calculs.png)
 
