@@ -18,15 +18,18 @@ def game(switch=True) -> bool:
     choice = r.randint(0,2) # choosing the first door
 
     # the host open the doors (opened door = -1)
-    if doors[(choice+1)%3] == 0:
-        doors[(choice+1)%3] = -1
-    else:
-        doors[(choice+2)%3] = -1
+    i = 0
+    while doors[i] != 0 or i == choice:
+        i += 1
+    doors[i] = -1
+    
+    available_choice = []
+    for i in range(3):
+        if doors[i] >= 0 and i != choice:
+            available_choice.append(i)
 
     if switch:
-        choice += 1 # the choice switch to the next door
-        if doors[choice % 3] == -1: # the next door is opened, the choice switch to the next one
-            choice += 1
+        choice = r.choice(available_choice)
     
     return doors[choice % 3] == 1 # the choice is the winning door
 
@@ -65,11 +68,11 @@ plt.title('Simulation of Monty Hall Problem')
 plt.xlabel('Number of games tried')
 plt.ylabel('Win probability')
 
-plt.scatter(n_games, switch, c="#d00000", alpha=0.8, label='Switched door')
-plt.scatter(n_games, no_switch, c="#faa307", alpha=0.8, label='No switched door')
+plt.scatter(n_games, switch, c="#faa307", alpha=0.7, label='Switched door')
+plt.scatter(n_games, no_switch, c="#d00000", alpha=0.7, label='No switched door')
 
 plt.legend()
 
 plt.savefig('result1.png')
-print(f"Executed in {time.time() - t}s") # around 60s on my PC
+print(f"Executed in {time.time() - t:.2f}s") # around 40s on my PC
 plt.show()
