@@ -17,7 +17,7 @@ def calculate(calc: str) -> float:
     for char in calc:
         if char not in supported_char:
             print("Unknown character")
-            return None
+            return 0
 
     priority = {"*": 1, "/": 1, "+": 2, "-": 2}
 
@@ -26,10 +26,14 @@ def calculate(calc: str) -> float:
     for term in terms:
         if term == "":
             print("Invalid Syntax")
-            return None
+            return 0
 
     if len(terms) <= 1:
-        return float(calc)
+        try:
+            return float(calc)
+        except ValueError:
+            print("Invalid Syntax")
+            return 0
 
     # finding the last operation
     max_priority = 0
@@ -63,4 +67,8 @@ def operation(a: float, b: float, operator: str) -> float:
                 print("non")
     return result
 
-print(calculate('1.5+2*0.3'))
+def main():
+    print(calculate('1.5+2*0.3'))
+
+if __name__ == "__main__":
+    main()
