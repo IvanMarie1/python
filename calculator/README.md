@@ -6,7 +6,7 @@ For the moment, it is in progress
 ---
 
 ## How to use it
-Go on `/docs` and download the files, you should be able to run `main.py` (not now)
+Go on `/code` and download the files, you should be able to run `main.py` (not now)
 
 ## How it works
 The calculator works with mainly two programs
