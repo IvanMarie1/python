@@ -37,10 +37,10 @@ screen.grid(column=1, row=1, columnspan=13, rowspan=3, sticky="nsew")
 
 # adding number keys
 nums = [Button(
-    root, text=str(9-i), bg="#8d99ae", activebackground='#6c757d', relief=FLAT, command=partial(change_screen, text, str(9-i)), font=my_font
+    root, text=str(9-i), bg="#8d99ae", activebackground='#79869c', relief=FLAT, command=partial(change_screen, text, str(9-i)), font=my_font
     ) for i in range(10)]
 for i in range(9):
-    nums[i].grid(row=9+(i//3)*3, column=2+(i%3)*3,columnspan=2, rowspan=2, sticky="nsew")
+    nums[i].grid(row=9+(i//3)*3, column=8-(i%3)*3,columnspan=2, rowspan=2, sticky="nsew")
 nums[-1].grid(row=18, column=2,columnspan=5, rowspan=2, sticky="nsew")
 
 # operator keys
@@ -53,7 +53,7 @@ for i in range(4):
     operators[i].grid(row=row, column=col,columnspan=2, rowspan=2, sticky="nsew")
 
 # point, equal, del, clear keys
-point = Button(root, text=".", bg="#8d99ae", activebackground='#6c757d', relief=FLAT, command=partial(change_screen, text, "."), font=my_font)
+point = Button(root, text=".", bg="#8d99ae", activebackground='#79869c', relief=FLAT, command=partial(change_screen, text, "."), font=my_font)
 point.grid(row=18, column=8,columnspan=2, rowspan=2, sticky="nsew")
 
 equal = Button(root, text="=", bg="#ef233c", activebackground='#d90429', relief=FLAT, font=my_font)
