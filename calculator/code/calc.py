@@ -9,7 +9,6 @@ def calculate(calc: str) -> float:
     ---
     TODO 
     - add parenthesis
-    - support negative numbers (e.g. 2*-1)
     - add other operators like exponent, sqrt, etc.
     """
     supported_char = list('0123456789+-*/.')
@@ -21,12 +20,13 @@ def calculate(calc: str) -> float:
 
     priority = {"*": 1, "/": 1, "+": 2, "-": 2}
 
-    terms  = re.split(r'(\+|(?!^-)-|\/|\*)', calc) # split the operators but not a - at the start
+    my_pattern = r'(\+|(?!^-)(?<![/*+-])-|\/|\*)'
+    terms  = re.split(my_pattern, calc) # split the operators but not a - at the start
+    
 
     for term in terms:
         if term == "":
             print("Invalid Syntax")
-            return 0
 
     if len(terms) <= 1:
         try:
@@ -67,12 +67,12 @@ def operation(a: float, b: float, operator: str) -> float:
             try:
                 result = a / b
             except ZeroDivisionError:
-                print("non")
+                print("You can't divide by 0")
     return result
 
 
 def main():
-    print(calculate('-1.5-2*0.3'))
+    print(calculate('1.3*-5-48'))
 
 if __name__ == "__main__":
     main()
