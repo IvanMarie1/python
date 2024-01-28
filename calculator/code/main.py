@@ -1,10 +1,9 @@
-from graphic import create_calc
-from tkinter import *
+from graphic import create_calc, config_button
 
 
 def main():
-    my_calc = Tk()
-    create_calc(my_calc)
+    my_calc, text = create_calc()
+    config_button(my_calc, text)
 
     my_calc.mainloop()
 
