@@ -12,3 +12,6 @@ Go on `/code` and download the files, you should be able to run `main.py` (not n
 The calculator works with mainly two programs
 - one with functions to calculate the input
 - a GUI with Tkinter to input the calculation
+
+## Preview
+<img src="https://i.ibb.co/WcvXK31/Screenshot-1.png" width=300>
