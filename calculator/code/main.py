@@ -1,12 +1,7 @@
-from graphic import create_calc, config_button
-
-
-def main():
-    my_calc, text = create_calc()
-    config_button(my_calc, text)
-
-    my_calc.mainloop()
+from graphic import create_calc
 
 
 if __name__ == "__main__":
-    main()
+    my_calc, text = create_calc()
+
+    my_calc.mainloop()
