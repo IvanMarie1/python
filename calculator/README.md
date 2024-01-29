@@ -14,4 +14,5 @@ The calculator works with mainly two programs
 - a GUI with Tkinter to input the calculation
 
 ## Preview
-<img src="https://i.ibb.co/WcvXK31/Screenshot-1.png" width=300>
+
+<img src="https://i.ibb.co/FsmXPdQ/image.png" alt="image" width="250">
